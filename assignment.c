@@ -14,6 +14,10 @@ void print_invalid_params() {
     printf("Incorrect usage. The parameters you provided are not positive integers\n");
 }
 
+void print_invalid_dimensions() {
+    printf("Incorrect usage. The dimensions provided must be greater than 1x1\n");
+}
+
 int is_positive_integer(const char *str) {
     for (int i = 0; str[i] != '\0'; i++) {
         if (str[i] < '0' || str[i] > '9') {
@@ -50,6 +54,13 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+
+    if (rows == 1 && cols == 1) {
+        print_invalid_dimensions();
+        return 1;
+    }
+
+    
     int **matrix = malloc(rows * sizeof(int *));
     for (int i = 0; i < rows; i++) {
         matrix[i] = malloc(cols * sizeof(int));
@@ -63,7 +74,7 @@ int main(int argc, char *argv[]) {
 
     FILE *f = fopen("matrix.txt", "w");
     if (!f) {
-        fprintf(stderr, "Failed to open the file for writing\n");
+        fprintf(stderr, "writing of file failed\n");
         return 1;
     }
 
